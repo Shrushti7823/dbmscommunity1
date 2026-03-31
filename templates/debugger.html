@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DBComsys - Community Management</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/debugger.css') }}" />
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">DBComsys</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="{{ url_for('index') }}" class="btn btn-primary">Back</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5 text-center">
+      <h1>DEBUGGER CLUB</h1>
+    </div>
+
+    <!-- Image Carousel -->
+    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{{ url_for('static', filename='uploads/debu1.jpeg') }}" class="d-block w-100" alt="Image 1" />
+        </div>
+        <div class="carousel-item">
+          <img src="{{ url_for('static', filename='uploads/debu2.jpeg') }}" class="d-block w-100" alt="Image 2" />
+        </div>
+        <div class="carousel-item">
+          <img src="{{ url_for('static', filename='uploads/debu33.jpeg') }}" class="d-block w-100" alt="Image 3" />
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+
+      <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Description -->
+    <div class="container text-center my-4">
+      <p class="lead">
+        Debuggers’ Club is one of the most prestigious clubs present in K. K. Wagh College of Engineering Education and Research, Nashik by the Department of Computer Engineering. It was formed in the year 1988 by Dr. V. D Barve (Principal), Prof. M. A. Shukhla (Head, Dept of Computer Engg.), Prof. Dr. S. S. Sane and Mr. Kuruvilla Mathus (Student Co-ordinator) together to provide students a platform to showcase their talents. It was one of the first clubs formed in the college and has been conducting successful technical as well as non-technical events ever since. The main motto of this club, which makes it different from other clubs, is “Run by the students, for the students, from the students, of the students”. Debuggers’ club organizes seminars, workshops, guest lectures, day celebrations, industrial visits, parent meets, alumni meets, certification courses, spoken tutorials with the aim of increasing awareness of new technologies amongst students.
+      </p>
+    </div>
+
+    <!-- Faculty Coordinators -->
+    <div class="container my-5 text-center">
+      <h3><b>FACULTY CO-ORDINATORS</b></h3>
+    </div>
+
+    <div class="container my-4 text-center">
+      <div class="row justify-content-center">
+        <div class="col-md-4 mb-4">
+          <img src="{{ url_for('static', filename='uploads/debcc.jpg') }}" class="img-fluid rounded shadow" alt="Prof. Chaitali Patil" />
+          <div class="mt-2">
+            <a href="https://www.kkwagh.edu.in/engineering/faculty-department/ms-c-r-patil/5/5/193/1" target="_blank">Prof. Chaitali Patil</a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <img src="{{ url_for('static', filename='uploads/debcc2.jpg') }}" class="img-fluid rounded shadow" alt="Prof. Smita Patil" />
+          <div class="mt-2">
+            <a href="https://www.kkwagh.edu.in/engineering/faculty-department/ms-s-t-patil/5/5/200/1" target="_blank">Prof. Smita Patil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

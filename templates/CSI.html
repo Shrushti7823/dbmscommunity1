@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBComsys - Community Management</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/CSI.css') }}">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">DBComsys</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Back</a>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5 text-center">
+    <h1>{{ csi.name }}</h1>
+</div>
+
+<!-- Carousel -->
+<div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        {% for img in csi.carousel_images %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <img src="{{ url_for('static', filename=img) }}" class="d-block w-100" alt="CSI Image {{ loop.index }}">
+        </div>
+        {% endfor %}
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!-- Description -->
+<div class="container text-center my-4">
+    <p class="lead">{{ csi.description }}</p>
+</div>
+
+<!-- Faculty -->
+<div class="container my-5 text-center">
+    <h3><b>FACULTY CO-ORDINATOR</b></h3>
+</div>
+
+<div class="container my-4 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-4">
+            <img src="{{ url_for('static', filename=csi.faculty_coordinator.photo) }}" class="img-fluid rounded shadow" alt="{{ csi.faculty_coordinator.name }}">
+
+            <div class="mt-2">
+                <a href="{{ csi.faculty_coordinator.profile_link }}" target="_blank">{{ csi.faculty_coordinator.name }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

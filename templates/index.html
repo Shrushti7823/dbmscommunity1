@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DBComsys - Community Management</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+ 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <!-- Sidebar Toggle -->
+      <button class="btn btn-dark me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <a class="navbar-brand fw-bold" href="#">DBComsys</a>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" id="searchInput" />
+            </form>
+          </li>
+        </ul>
+        {% if not session.get('admin_logged_in') %}
+        <!-- Show this button only if the admin is NOT logged in -->
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+    {% else %}
+        <!-- Admin has logged in, show logout link -->
+        <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+    {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar Offcanvas -->
+  <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="sidebarMenuLabel">Community</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <a href="#" class="text-decoration-none text-white w-100">
+        <div class="sidebar-header text-center mb-4">
+          <i class="fas fa-user-circle fa-3x"></i>
+          <h5 class="mt-2">Profile</h5>
+        </div>
+      </a>
+      <ul class="nav flex-column">
+        <a class="nav-link text-white" href="{{ url_for('dashboard') }}">
+          <i class="fas fa-chart-line me-2"></i> Dashboard
+        </a>
+        <li class="nav-item dropdown position-relative">
+          <a class="nav-link text-white dropdown-toggle" href="#" id="addCommunityDropdown" role="button">
+            <i class="fas fa-plus-circle me-2"></i>Add New Community
+          </a>
+          <ul class="dropdown-menu bg-dark border-0 shadow" aria-labelledby="addCommunityDropdown" style="display: none; position: absolute; top: 100%; left: 0; z-index: 1050;">
+            <li><a class="dropdown-item text-white" href="{{ url_for('form', branch='computer') }}">Computer Department</a></li>
+            <li><a class="dropdown-item text-white" href="{{ url_for('form', branch='it') }}">IT Department</a></li>
+            <li><a class="dropdown-item text-white" href="{{ url_for('form', branch='entc') }}">ENTC Department</a></li>
+            <li><a class="dropdown-item text-white" href="{{ url_for('form', branch='mechanical') }}">Mechanical Department</a></li>
+            <li><a class="dropdown-item text-white" href="{{ url_for('form', branch='aids') }}">AIDS Department</a></li>
+            <li><a class="dropdown-item text-white" href="{{ url_for('form', branch='csd') }}">CSD Department</a></li>
+            <li><a class="dropdown-item text-white" href="{{ url_for('form', branch='civil') }}">Civil Department</a></li>
+            <li><a class="dropdown-item text-white" href="{{ url_for('form', branch='robo') }}">Robotics Department</a></li>
+            <li><a class="dropdown-item text-white" href="{{ url_for('form', branch='chem') }}">Chemical Department</a></li>
+            <li><a class="dropdown-item text-white" href="{{ url_for('form', branch='electrical') }}">Electrical Department</a></li>
+          </ul>
+        </li>
+        
+        
+        <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-trash-alt me-2"></i>Delete Community</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#"><i class="fas fa-edit me-2"></i>Update Community</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <img src="{{ url_for('static', filename='uploads/1.jpg') }}" alt="Community" class="hero-image" />
+    <div class="hero-logo-container">
+      <img src="{{ url_for('static', filename='uploads/newlogo.png') }}" alt="logo" class="hero-logo" />
+    </div>
+    <div class="hero-heading">
+      <h1 class="comm">Community Management System</h1>
+    </div>
+  </section>
+  
+
+  <!-- Description -->
+  <div class="container text-center my-4">
+    <p class="lead">
+      The Community Management System is a centralized platform designed to efficiently manage and organize data related to various committees within the institute. The system allows administrators to maintain comprehensive records of each committee, including detailed descriptions, associated photographs, and the list of faculty members involved. Faculty profiles within the system capture essential information such as names, designations, qualifications, and contact details. 
+    </p>
+  </div>
+
+ <!-- Cards Section -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+
+   <!-- Card 1: Computer Engineering -->
+<div class="col-md-5 mb-4" id="computer-engineering">
+  <div class="card bg-shopping">
+    <img src="{{ url_for('static', filename='uploads/comp.png') }}" class="card-img-top" alt="Computer Engineering">
+    <div class="card-body">
+      <h5 class="card-title">Computer Engineering</h5>
+      <p class="card-text">Dive into the world of software, systems, and innovation with CSI and DEBUGGER clubs leading tech talks, coding events, and hands-on workshops</p>
+      <a href="{{ url_for('csi') }}" class="btn btn-primary">CSI</a>
+      <a href="{{ url_for('debugger') }}" class="btn btn-primary">DEBUGGER</a>
+
+      <!-- Dynamic Community Buttons for Computer Engineering -->
+      {% for community in communities %}
+        {% if community.branch == 'computer' %}
+        <a href="{{ url_for('community_view', community_id=community['_id']) }}" class="btn btn-pink">
+          {{ community['community_name'] }}
+      </a>
+      
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+    <!-- Card 2: Information Technology -->
+    <div class="col-md-5 mb-4" id="information-technology">
+      <div class="card bg-shopping">
+        <img src="{{ url_for('static', filename='uploads/IT.png') }}" class="card-img-top" alt="IT">
+        <div class="card-body">
+          <h5 class="card-title">Information Technology</h5>
+          <p class="card-text">Iteron empowers students with the latest in IT trends, networking, and software development through immersive project-based learning</p>
+          <a href="{{ url_for('iteron') }}" class="btn btn-primary">ITERON</a>
+           <!-- Dynamic Community Buttons for Computer Engineering -->
+      {% for community in communities %}
+      {% if community.branch == 'it' %}
+      <a href="{{ url_for('community_view', community_id=community['_id']) }}" class="btn btn-pink">
+        {{ community['community_name'] }}
+    </a>
+    
+      {% endif %}
+    {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: AI & DS -->
+    <div class="col-md-5 mb-4" id="ai-ds">
+      <div class="card bg-shopping">
+        <img src="{{ url_for('static', filename='uploads/AIDS.png') }}" class="card-img-top" alt="AIDS">
+        <div class="card-body">
+          <h5 class="card-title">Artificial Intelligence and Data Science</h5>
+          <p class="card-text">Phoenix leads AI enthusiasts into machine learning, data-driven insights, and real-world applications of intelligent systems</p>
+          
+          <a href="{{ url_for('PHOENIX') }}" class="btn btn-primary">PHOENIX</a>
+           <!-- Dynamic Community Buttons for Computer Engineering -->
+      {% for community in communities %}
+      {% if community.branch == 'aids' %}
+      <a href="{{ url_for('community_view', community_id=community['_id']) }}" class="btn btn-pink">
+        {{ community['community_name'] }}
+    </a>
+    
+      {% endif %}
+    {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Computer Science and Design -->
+    <div class="col-md-5 mb-4" id="computer-science-and-design">
+      <div class="card bg-shopping">
+        <img src="{{ url_for('static', filename='uploads/CSD.png') }}" class="card-img-top" alt="CSD">
+        <div class="card-body">
+          <h5 class="card-title">Computer Science and Design</h5>
+          <p class="card-text">DESOC merges creativity with code, focusing on UI/UX design, web development, and design thinking methodologies</p>
+          <a href="{{ url_for('desoc') }}" class="btn btn-primary">DESOC</a>
+           <!-- Dynamic Community Buttons for Computer Engineering -->
+      {% for community in communities %}
+      {% if community.branch == 'csd' %}
+      <a href="{{ url_for('community_view', community_id=community['_id']) }}" class="btn btn-pink">
+        {{ community['community_name'] }}
+    </a>
+    
+      {% endif %}
+    {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: Electronics Engineering -->
+    <div class="col-md-5 mb-4" id="electronics-engineering">
+      <div class="card bg-shopping">
+        <img src="{{ url_for('static', filename='uploads/ENTC.png') }}" class="card-img-top" alt="ENTC">
+        <div class="card-body">
+          <h5 class="card-title">Electronics & Telecommunication Engineering</h5>
+          <p class="card-text">TELEKINESIS is all about exploring embedded systems, signal processing, and communication tech through dynamic sessions and projects</p>
+          
+          <a href="{{ url_for('telekinesis') }}" class="btn btn-primary">TELEKINESIS</a>
+           <!-- Dynamic Community Buttons for Computer Engineering -->
+      {% for community in communities %}
+      {% if community.branch == 'entc' %}
+      <a href="{{ url_for('community_view', community_id=community['_id']) }}" class="btn btn-pink">
+        {{ community['community_name'] }}
+    </a>
+    
+      {% endif %}
+    {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6: Robotics Engineering -->
+    <div class="col-md-5 mb-4" id="robotics-engineering">
+      <div class="card bg-shopping">
+        <img src="{{ url_for('static', filename='uploads/ROBO.png') }}" class="card-img-top" alt="Robotics and Automation Engineering">
+        <div class="card-body">
+          <h5 class="card-title">Robotics and Automation Engineering</h5>
+          <p class="card-text">SARA powers automation enthusiasts through robotics builds, IoT innovation, and inter-college robotic competitions</p>
+          <a href="{{ url_for('sara') }}" class="btn btn-primary">SARA</a>
+           <!-- Dynamic Community Buttons for Computer Engineering -->
+      {% for community in communities %}
+      {% if community.branch == 'robo' %}
+      <a href="{{ url_for('community_view', community_id=community['_id']) }}" class="btn btn-pink">
+        {{ community['community_name'] }}
+    </a>
+    
+      {% endif %}
+    {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 7: Electrical Engineering -->
+    <div class="col-md-5 mb-4" id="electrical-engineering">
+      <div class="card bg-shopping">
+        <img src="{{ url_for('static', filename='uploads/ELEC.png') }}" class="card-img-top" alt="Electrical Engineering">
+        <div class="card-body">
+          <h5 class="card-title">Electrical Engineering</h5>
+          <p class="card-text">ELEC CLUB sparks innovation with circuit design, energy systems, and hands-on experiments in renewable tech</p>
+          <a href="ELEC.html" class="btn btn-primary">ELEC CLUB</a>
+           <!-- Dynamic Community Buttons for Computer Engineering -->
+      {% for community in communities %}
+      {% if community.branch == 'electrical' %}
+      <a href="{{ url_for('community_view', community_id=community['_id']) }}" class="btn btn-pink">
+        {{ community['community_name'] }}
+    </a>
+    
+      {% endif %}
+    {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 8: Chemical Engineering -->
+    <div class="col-md-5 mb-4" id="chemical-engineering">
+      <div class="card bg-shopping">
+        <img src="{{ url_for('static', filename='uploads/CHEM.png') }}" class="card-img-top" alt="Chemical Engineering">
+        <div class="card-body">
+          <h5 class="card-title">Chemical Engineering</h5>
+          <p class="card-text">CHEMFEST blends theory with practice—hosting experiments, industrial visits, and chemistry challenges</p>
+          
+          <a href="{{ url_for('chem') }}" class="btn btn-primary">CHEMFEST</a>
+           <!-- Dynamic Community Buttons for Computer Engineering -->
+      {% for community in communities %}
+      {% if community.branch == 'chemical' %}
+      <a href="{{ url_for('community_view', community_id=community['_id']) }}" class="btn btn-pink">
+        {{ community['community_name'] }}
+    </a>
+    
+      {% endif %}
+    {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 9: Mechanical Engineering -->
+    <div class="col-md-5 mb-4" id="mechanical-engineering">
+      <div class="card bg-shopping">
+        <img src="{{ url_for('static', filename='uploads/MECH.png') }}" class="card-img-top" alt="Mechanical Engineering">
+        <div class="card-body">
+          <h5 class="card-title">Mechanical Engineering</h5>
+          <p class="card-text">MESA fuels innovation in machines, thermodynamics, CAD, and mechanical design through workshops</p>
+          <a href="{{ url_for('mesa') }}" class="btn btn-primary">MESA</a>
+           <!-- Dynamic Community Buttons for Computer Engineering -->
+      {% for community in communities %}
+      {% if community.branch == 'mechanical' %}
+      <a href="{{ url_for('community_view', community_id=community['_id']) }}" class="btn btn-pink">
+        {{ community['community_name'] }}
+    </a>
+    
+      {% endif %}
+    {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 10: Civil Engineering -->
+    <div class="col-md-5 mb-4" id="civil-engineering">
+      <div class="card bg-shopping">
+        <img src="{{ url_for('static', filename='uploads/CIVIL.png') }}" class="card-img-top" alt="Civil Engineering">
+        <div class="card-body">
+          <h5 class="card-title">Civil Engineering</h5>
+          <p class="card-text">CESA builds the foundation for success with surveying, sustainable design, and structural innovation events</p>
+          <a href="{{ url_for('cesa') }}" class="btn btn-primary">CESA</a>
+           <!-- Dynamic Community Buttons for Computer Engineering -->
+      {% for community in communities %}
+      {% if community.branch == 'civil' %}
+      <a href="{{ url_for('community_view', community_id=community['_id']) }}" class="btn btn-pink">
+        {{ community['community_name'] }}
+    </a>
+    
+      {% endif %}
+    {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+  const branches = {
+    "Computer Engineering": "computer-engineering",
+    "Information Technology": "information-technology",
+    "Artificial Intelligence and Data Science": "ai-ds",
+    "Computer Science and Design": "csd",
+    "Electronics & Telecommunication Engineering": "electronics-engineering",
+    "Robotics and Automation Engineering": "robotics-engineering",
+    "Electrical Engineering": "electrical-engineering",
+    "Chemical Engineering": "chemical-engineering",
+    "Mechanical Engineering": "mechanical-engineering",
+    "Civil Engineering": "civil-engineering"
+  };
+  
+  const searchInput = document.getElementById("searchInput");
+  let lastSelected = "";
+  
+  searchInput.addEventListener("input", function () {
+    const input = this.value.toLowerCase();
+    closeSuggestions();
+    if (!input) return;
+  
+    const matches = Object.keys(branches).filter(branch =>
+      branch.toLowerCase().includes(input) &&
+      branch.toLowerCase() !== lastSelected.toLowerCase()
+    );
+  
+    if (matches.length === 0) return;
+  
+    const list = document.createElement("ul");
+    list.setAttribute("id", "suggestions-list");
+    Object.assign(list.style, {
+      position: "absolute",
+      backgroundColor: "#fff",
+      border: "1px solid #ccc",
+      listStyle: "none",
+      padding: "5px",
+      margin: "0",
+      width: `${searchInput.offsetWidth}px`,
+      zIndex: "1000"
+    });
+  
+    matches.forEach(branch => {
+      const item = document.createElement("li");
+      item.textContent = branch;
+      item.style.padding = "4px";
+      item.style.cursor = "pointer";
+      item.addEventListener("click", function () {
+        searchInput.value = branch;
+        lastSelected = branch;
+        closeSuggestions();
+  
+        const section = document.getElementById(branches[branch]);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth", block: "center" });
+  
+          // Remove old highlights
+          document.querySelectorAll(".highlight-card").forEach(card => {
+            card.classList.remove("highlight-card");
+          });
+  
+          // Add highlight class
+          section.classList.add("highlight-card");
+  
+          // Remove highlight after 1.5 sec
+          setTimeout(() => {
+            section.classList.remove("highlight-card");
+          }, 1500);
+        }
+      });
+      list.appendChild(item);
+    });
+  
+    searchInput.parentNode.appendChild(list);
+  });
+  
+  document.addEventListener("click", e => {
+    if (e.target !== searchInput) closeSuggestions();
+  });
+  
+  function closeSuggestions() {
+    const oldList = document.getElementById("suggestions-list");
+    if (oldList) oldList.remove();
+  }
+  </script>
+  
+    
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

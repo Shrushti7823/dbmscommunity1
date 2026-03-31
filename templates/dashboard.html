@@ -1,0 +1,79 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - DBComsys</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Dashboard</a>
+      <a href="{{ url_for('index') }}" class="btn btn-outline-light">Back to Home</a>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="card bg-primary text-white p-4 rounded">
+          <h2>{{ total_faculties }}</h2>
+          <p>Total Faculties</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card bg-success text-white p-4 rounded">
+          <h2>{{ total_communities }}</h2>
+          <p>Total Communities</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card bg-warning text-white p-4 rounded">
+          <h2>{{ total_branches }}</h2>
+          <p>Total Branches</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graph Section -->
+    <div class="my-5">
+      <canvas id="myChart" width="400" height="200"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Faculties', 'Communities', 'Branches'],
+        datasets: [{
+          label: 'Statistics',
+          data: [{{ total_faculties }}, {{ total_communities }}, {{ total_branches }}],
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(75, 192, 192, 0.7)',
+            'rgba(255, 206, 86, 0.7)'
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(255, 206, 86, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
