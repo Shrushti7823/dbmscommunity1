@@ -14,3 +14,4 @@ showLogin.addEventListener("click", (e) => {
   signupForm.classList.add("d-none");
   loginForm.classList.remove("d-none");
 });
+
